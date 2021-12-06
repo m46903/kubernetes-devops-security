@@ -23,14 +23,25 @@ pipeline {
       }
     }
 
-    stage('SonarQube - for SAST') {
+    stage('Mutation Tests - PIT') {
       steps {
-        sh "mvn sonar:sonar \
-  -Dsonar.projectKey=numeric-application \
-  -Dsonar.host.url=http://3.89.100.202:9000 \
-  -Dsonar.login=a6ee88c8e73045e0915a162b4b21f306f523cc70"
+        sh "mvn org.pitest:pitest-maven:mutationCoverage"
+      }
+      post {
+        always {
+          pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+        }
       }
     }
+
+ //   stage('SonarQube - for SAST') {
+ //     steps {
+ //       sh "mvn sonar:sonar \
+ // -Dsonar.projectKey=numeric-application \
+ // -Dsonar.host.url=http://3.89.100.202:9000 \
+ // -Dsonar.login=a6ee88c8e73045e0915a162b4b21f306f523cc70"
+ //     }
+ //   }
 
 
     stage('Docker Build and Push') {
