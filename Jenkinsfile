@@ -34,14 +34,11 @@ pipeline {
       }
     }
 
- //   stage('SonarQube - for SAST') {
- //     steps {
- //       sh "mvn sonar:sonar \
- // -Dsonar.projectKey=numeric-application \
- // -Dsonar.host.url=http://3.89.100.202:9000 \
- // -Dsonar.login=a6ee88c8e73045e0915a162b4b21f306f523cc70"
- //     }
- //   }
+    stage('SonarQube - for SAST') {
+      steps {
+        sh "mvn sonar:sonar -Dsonar.projectKey=jenkins-pipeline -Dsonar.host.url=http://3.89.100.202:9000 -Dsonar.login=afdd917c062fd56b018d3e212403fe04c6813f61"
+      }
+    }
 
 
     stage('Docker Build and Push') {
