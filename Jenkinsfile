@@ -23,9 +23,12 @@ pipeline {
       }
     }
 
-    stage('SonarQube - SAST') {
+    stage('SonarQube - for SAST') {
       steps {
-        sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://3.89.100.202:9000 -Dsonar.login=2804eddb2799e6ba3e7626b6ca65ce35dbe55104"
+        sh "mvn sonar:sonar \
+  -Dsonar.projectKey=numeric-application \
+  -Dsonar.host.url=http://3.89.100.202:9000 \
+  -Dsonar.login=a6ee88c8e73045e0915a162b4b21f306f523cc70"
       }
     }
 
