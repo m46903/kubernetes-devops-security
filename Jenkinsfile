@@ -34,13 +34,24 @@ pipeline {
       }
     }
 
-    stage('SonarQube - for SAST') {
+ //   stage('SonarQube - for SAST') {
+ //     steps {
+ //       sh "mvn sonar:sonar -Dsonar.projectKey=jenkins-pipeline -Dsonar.host.url=http://3.89.100.202:9000 -Dsonar.login=afdd917c062fd56b018d3e212403fe04c6813f61"
+ //     }
+ //   }
+
+
+     stage('Vulnerability Scan - Docker ') {
       steps {
-        sh "mvn sonar:sonar -Dsonar.projectKey=jenkins-pipeline -Dsonar.host.url=http://3.89.100.202:9000 -Dsonar.login=afdd917c062fd56b018d3e212403fe04c6813f61"
+        sh "mvn dependency-check:check"
+      }
+      post {
+        always {
+          dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+        }
       }
     }
-
-
+    
     stage('Docker Build and Push') {
       steps {
         withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
