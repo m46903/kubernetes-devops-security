@@ -15,3 +15,4 @@
 `kubectl expose deploy node-app --name node-service --port 5000 --type ClusterIP`
 
 `curl node-service-ip:5000/plusone/99`
+## just a test on 12/15/21 @ 11:41 PM EST
